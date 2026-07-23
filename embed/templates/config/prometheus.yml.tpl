@@ -12,6 +12,10 @@ global:
   external_labels:
     cluster: '{{.ClusterName}}'
     monitor: "prometheus"
+{{- /* Render user-defined external_labels from the topology into Prometheus global labels. */}}
+{{- range $key, $value := .ExternalLabels}}
+    {{$key}}: {{yamlQuote $value}}
+{{- end}}
 
 # Load and evaluate rules in this file every 'evaluation_interval' seconds.
 rule_files:
